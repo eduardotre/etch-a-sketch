@@ -1,0 +1,49 @@
+<body>
+    <button id="button">Restart!</button>
+    <div id="container"> </div>
+</body>
+
+<script>
+    const container = document.querySelector('#container');
+    const button = document.querySelector('#button');
+    let pixels = 4; //default
+    let cells = document.querySelectorAll('.cell');
+    
+    function createGrid(RxC){
+        container.setAttribute(
+        'style', `height: 97vh; display: grid; grid-template-columns: repeat(${RxC},1fr); grid-template-rows:repeat(${RxC},1fr);`
+        );
+
+        i=1;
+        while (i <= (RxC**2)){
+            const cell = document.createElement('div');
+            cell.classList.add('cell')
+            container.appendChild(cell);
+            ++i;
+        }
+    }
+    createGrid(pixels);
+    function updateCells(){
+        cells = document.querySelectorAll('.cell');
+        cells.forEach((cell) => {
+            cell.addEventListener('mouseenter', fillCell)
+        });  
+    }
+    updateCells();
+
+    function fillCell(e){
+        e.target.setAttribute('style', 'background: black;');
+    }
+
+    button.addEventListener('click', () => {
+        pixels = prompt('How many RxC do you want?');
+        cells.forEach((cell) => {
+            container.removeChild(cell);
+        });          
+        createGrid(pixels);
+        updateCells();
+        //cells.forEach((cell) => cell.removeAttribute('style', 'background'));
+    });
+
+     //run game for the 1st time
+</script>
